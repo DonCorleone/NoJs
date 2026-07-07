@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>clamp() — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
+    .demo {
+      margin: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .label {
+      font-family: monospace;
+      font-size: 0.75rem;
+      opacity: 0.5;
+      margin-bottom: 4px;
+    }
+
+    .font-demo {
+      font-size: clamp(1rem, 0.3rem + 3.47vw, 2rem);
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .padding-demo {
+      background: lightblue;
+      color: #1a1a1a;
+      padding: clamp(8px, 2vw, 32px);
+      font-family: monospace;
+      font-size: 0.85rem;
+    }
+
+    .gap-demo {
+      display: flex;
+      gap: clamp(8px, 3vw, 48px);
+    }
+
+    .gap-demo span {
+      background: lightgreen;
+      color: #1a1a1a;
+      padding: 8px 16px;
+      font-family: monospace;
+      font-size: 0.8rem;
+    }
+
+    .width-demo {
+      background: lightcoral;
+      color: #1a1a1a;
+      width: clamp(120px, 50%, 400px);
+      padding: 10px 16px;
+      font-family: monospace;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>clamp(min, preferred, max)</code> — fluid value between a fixed floor and ceiling</li>
+    <li>the preferred value is usually a <code>vw</code>-based expression so it scales with the viewport</li>
+    <li>works on any numeric property — font-size, padding, gap, width, margin…</li>
+  </ul>
+
+  <div class="demo">
+    <div>
+      <div class="label">font-size: clamp(1rem, 0.3rem + 3.47vw, 2rem)</div>
+      <div class="font-demo">Resize the window to see me scale.</div>
+    </div>
+
+    <div>
+      <div class="label">padding: clamp(8px, 2vw, 32px)</div>
+      <div class="padding-demo">padding shrinks and grows with the viewport</div>
+    </div>
+
+    <div>
+      <div class="label">gap: clamp(8px, 3vw, 48px)</div>
+      <div class="gap-demo">
+        <span>item</span>
+        <span>item</span>
+        <span>item</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="label">width: clamp(120px, 50%, 400px)</div>
+      <div class="width-demo">never narrower than 120px, never wider than 400px</div>
+    </div>
+  </div>
+
+</body>
+</html>
