@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mix-blend-mode — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
+    .demo {
+      margin: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* progress bar demo */
+    .bar-wrap {
+      position: relative;
+      height: 48px;
+      background: linear-gradient(to right, #222 10%, #eee 10%);
+    }
+
+    .bar-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: white;
+      mix-blend-mode: difference;
+    }
+
+    /* gradient background demo */
+    .gradient-wrap {
+      position: relative;
+      height: 48px;
+      background: linear-gradient(to right, #e63946, #f4a261, #2a9d8f, #264653);
+    }
+
+    .gradient-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: white;
+      mix-blend-mode: difference;
+    }
+
+    /* checkerboard demo */
+    .check-wrap {
+      position: relative;
+      height: 48px;
+      background-image: repeating-conic-gradient(#555 0% 25%, #ddd 0% 50%);
+      background-size: 24px 24px;
+    }
+
+    .check-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: white;
+      mix-blend-mode: difference;
+    }
+
+    .label {
+      font-family: monospace;
+      font-size: 0.75rem;
+      opacity: 0.5;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>mix-blend-mode: difference</code> — inverts text color against whatever is behind it</li>
+    <li>text must be <code>white</code> — difference blends white as the inverse of the background</li>
+    <li>works across any background: gradients, images, animations — no JS, no recalculation</li>
+  </ul>
+
+  <div class="demo">
+    <div>
+      <div class="label">progress bar — text flips at the boundary</div>
+      <div class="bar-wrap">
+        <div class="bar-label">Loading… 60%</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="label">gradient background</div>
+      <div class="gradient-wrap">
+        <div class="gradient-label">Always readable</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="label">checkerboard</div>
+      <div class="check-wrap">
+        <div class="check-label">Still readable</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
