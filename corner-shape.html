@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Corner Shape — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    .notice {
+      font-family: monospace;
+      font-size: 0.8rem;
+      background: #fff3cd;
+      color: #1a1a1a;
+      padding: 10px 16px;
+      margin: 16px 32px 0;
+      border-left: 3px solid #f0a500;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 24px;
+      padding: 32px;
+    }
+
+    .card {
+      background: lightblue;
+      color: #1a1a1a;
+      border-radius: 28px;
+      padding: 24px 16px;
+      text-align: center;
+      font-size: 0.85rem;
+      font-family: monospace;
+    }
+
+    .round  { corner-shape: round;  }
+    .scoop  { corner-shape: scoop;  }
+    .bevel  { corner-shape: bevel;  }
+    .rect   { corner-shape: rect;   }
+
+    .animate {
+      background: lightcoral;
+      color: #1a1a1a;
+      corner-shape: scoop;
+      transition: corner-shape 0.3s ease;
+    }
+
+    .animate:hover {
+      corner-shape: round;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="notice">⚠️ Experimental — requires Chrome Canary with flags enabled. Not supported in Firefox or Safari.</p>
+
+  <div class="grid">
+    <div class="card round">round</div>
+    <div class="card scoop">scoop</div>
+    <div class="card bevel">bevel</div>
+    <div class="card rect">rect</div>
+    <div class="card animate">hover me<br>(scoop → round)</div>
+  </div>
+
+</body>
+</html>
