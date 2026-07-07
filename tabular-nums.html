@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabular Nums — NoJS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
+    .demo {
+      margin: 0 24px;
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .label {
+      font-family: monospace;
+      font-size: 0.75rem;
+      opacity: 0.5;
+      margin-bottom: 12px;
+    }
+
+    table {
+      border-collapse: collapse;
+      font-size: 1.1rem;
+      font-family: 'Lora', Georgia, serif;
+    }
+
+    td {
+      padding: 4px 12px 4px 0;
+      vertical-align: top;
+    }
+
+    td:last-child {
+      text-align: right;
+      padding-right: 0;
+    }
+
+    .tabular td:last-child {
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>font-variant-numeric: tabular-nums</code> — every digit takes the same width</li>
+    <li><code>font-feature-settings: "tnum"</code> — lower-level fallback for the same effect</li>
+    <li>best seen in columns of numbers — decimals and thousands align perfectly</li>
+  </ul>
+
+  <div class="demo">
+
+    <div>
+      <div class="label">without tabular-nums</div>
+      <table class="proportional">
+        <tr><td>Revenue</td>   <td>1,111.00</td></tr>
+        <tr><td>Expenses</td>  <td>999.57</td></tr>
+        <tr><td>Profit</td>    <td>111.43</td></tr>
+        <tr><td>Tax</td>       <td>17,777.90</td></tr>
+        <tr><td>Net</td>       <td>100,000.11</td></tr>
+      </table>
+    </div>
+
+    <div>
+      <div class="label">with tabular-nums</div>
+      <table class="tabular">
+        <tr><td>Revenue</td>   <td>1,111.00</td></tr>
+        <tr><td>Expenses</td>  <td>999.57</td></tr>
+        <tr><td>Profit</td>    <td>111.43</td></tr>
+        <tr><td>Tax</td>       <td>17,777.90</td></tr>
+        <tr><td>Net</td>       <td>100,000.11</td></tr>
+      </table>
+    </div>
+
+  </div>
+
+</body>
+</html>
