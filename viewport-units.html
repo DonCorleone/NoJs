@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viewport Units — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    .keys {
+      padding: 24px 24px 16px;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      padding: 0 24px 24px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      font-family: monospace;
+      font-size: 0.8rem;
+      text-decoration: none;
+      padding: 6px 12px;
+      border: 1px solid currentColor;
+      opacity: 0.6;
+    }
+
+    .nav a:hover { opacity: 1; }
+
+    .section {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      font-family: monospace;
+      color: #1a1a1a;
+    }
+
+    .section strong { font-size: 1.4rem; }
+    .section span   { font-size: 0.8rem; opacity: 0.6; }
+
+    .top-link {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      font-family: monospace;
+      font-size: 0.78rem;
+      text-decoration: none;
+      color: #1a1a1a;
+      opacity: 0.5;
+      border: 1px solid currentColor;
+      padding: 5px 10px;
+    }
+
+    .top-link:hover { opacity: 1; }
+
+    .vh  { height: 100vh;  background: lightblue; }
+    .svh { height: 100svh; background: lightcoral; }
+    .lvh { height: 100lvh; background: lightgreen; }
+    .dvh { height: 100dvh; background: lightyellow; }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>svh</code> — small viewport: toolbar visible (shortest)</li>
+    <li><code>lvh</code> — large viewport: toolbar hidden (tallest)</li>
+    <li><code>dvh</code> — dynamic: updates as toolbar shows/hides — can cause layout jumps</li>
+  </ul>
+
+  <nav class="nav">
+    <a href="#vh">100vh</a>
+    <a href="#svh">100svh</a>
+    <a href="#lvh">100lvh</a>
+    <a href="#dvh">100dvh</a>
+  </nav>
+
+  <div id="vh" class="section vh">
+    <strong>100vh</strong>
+    <span>classic — ignores browser toolbar</span>
+    <a class="top-link" href="#top">↑ top</a>
+  </div>
+
+  <div id="svh" class="section svh">
+    <strong>100svh</strong>
+    <span>always fits with toolbar visible</span>
+    <a class="top-link" href="#top">↑ top</a>
+  </div>
+
+  <div id="lvh" class="section lvh">
+    <strong>100lvh</strong>
+    <span>fills screen when toolbar is hidden</span>
+    <a class="top-link" href="#top">↑ top</a>
+  </div>
+
+  <div id="dvh" class="section dvh">
+    <strong>100dvh</strong>
+    <span>adapts live — scroll to see it shift</span>
+    <a class="top-link" href="#top">↑ top</a>
+  </div>
+
+</body>
+</html>
