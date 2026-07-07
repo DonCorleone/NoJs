@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Columns — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    .article {
+      column-count: 3;
+      column-gap: 24px;
+      column-fill: balance;
+    }
+
+    .article p {
+      margin: 0 0 0.8em;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .article p:last-child { margin-bottom: 0; }
+  </style>
+</head>
+<body>
+
+  <div class="article">
+    <p>The <code>column-count</code> property has been in every major browser since 2011, yet most developers still reach for flexbox or grid the moment they need side-by-side content.</p>
+    <p>With <code>column-fill: balance</code> the browser automatically distributes text so each column ends at roughly the same height — no JavaScript, no manual height calculations, no layout shifts.</p>
+    <p><code>column-gap</code> works exactly like its grid counterpart, giving you a clean gutter between columns. Add <code>column-rule</code> if you want a visible divider line too.</p>
+    <p>Resize the window and watch the text reflow. The browser handles everything: line breaking, orphan control — all without a single line of script.</p>
+  </div>
+
+</body>
+</html>
