@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoJS — HTML & CSS Snippets</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0f0f13;
+      --surface: #1a1a22;
+      --surface-hover: #22222e;
+      --border: #2e2e3e;
+      --accent: #7c6af7;
+      --accent-dim: #3d3666;
+      --text: #e8e8f0;
+      --text-muted: #888899;
+      --tag-bg: #1e1e2e;
+      --tag-text: #a09ed6;
+      --radius: 12px;
+      --font-mono: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+      --font-sans: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Header ─────────────────────────────────────────────── */
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 50% -10%, #4b3fa820 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      padding: 0.3rem 0.75rem;
+      border-radius: 99px;
+      margin-bottom: 1.25rem;
+    }
+
+    .logo::before {
+      content: "◈";
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 46ch;
+      margin: 0 auto;
+    }
+
+    /* ── Stats bar ───────────────────────────────────────────── */
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Main layout ─────────────────────────────────────────── */
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-label::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Grid ────────────────────────────────────────────────── */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    /* ── Card ────────────────────────────────────────────────── */
+
+    .card {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s, border-color 0.15s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), #a78bfa);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .card:hover {
+      background: var(--surface-hover);
+      border-color: var(--accent-dim);
+      transform: translateY(-2px);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      display: block;
+      line-height: 1;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: var(--text);
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    /* ── Empty card (placeholder) ────────────────────────────── */
+
+    .card-placeholder {
+      border-style: dashed;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 140px;
+      color: var(--text-muted);
+      cursor: default;
+    }
+
+    .card-placeholder:hover {
+      background: transparent;
+      transform: none;
+    }
+
+    .card-placeholder .plus {
+      font-size: 1.75rem;
+      color: var(--border);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    /* ── Footer ──────────────────────────────────────────────── */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    footer span {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">NoJS</div>
+    <h1>HTML &amp; CSS <span>Snippets</span></h1>
+    <p class="subtitle">
+      A curated collection of interactive UI patterns — built with nothing but HTML and CSS.
+    </p>
+  </header>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-value">02</div>
+      <div class="stat-label">Snippets</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">0</div>
+      <div class="stat-label">JS Lines</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">∞</div>
+      <div class="stat-label">Possibilities</div>
+    </div>
+  </div>
+
+  <main>
+    <p class="section-label">All snippets</p>
+
+    <div class="grid">
+
+      <!-- ── Existing snippet: show-modal ── -->
+      <a class="card" href="show-modal.html">
+        <span class="card-icon">🪟</span>
+        <div class="card-title">Show Modal</div>
+        <p class="card-desc">
+          Open and close a native <code>&lt;dialog&gt;</code> element using the
+          new <code>command</code> &amp; <code>commandfor</code> attributes — zero JavaScript.
+        </p>
+        <div class="card-tags">
+          <span class="tag">dialog</span>
+          <span class="tag">command API</span>
+          <span class="tag">HTML</span>
+        </div>
+      </a>
+
+      <!-- ── Named Grid Lines ── -->
+      <a class="card" href="named-grid-lines.html">
+        <span class="card-icon">🔲</span>
+        <div class="card-title">Named Grid Lines</div>
+        <p class="card-desc">
+          Place grid items by name instead of hardcoded numbers, so your layout
+          never breaks when tracks are added or rearranged.
+        </p>
+        <div class="card-tags">
+          <span class="tag">CSS Grid</span>
+          <span class="tag">grid-template</span>
+          <span class="tag">layout</span>
+        </div>
+      </a>
+
+      <!-- ── Placeholder ── -->
+      <div class="card card-placeholder">
+        <span class="plus">+</span>
+        <span>More snippets coming soon</span>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    pure <span>HTML</span> &amp; <span>CSS</span> — no scripts, no frameworks, no magic
+  </footer>
+
+</body>
+</html>

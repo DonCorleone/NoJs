@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Named Grid Lines — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 160px [main-start] 1fr [main-end];
+      grid-template-rows: auto 1fr auto;
+      gap: 6px;
+      height: 200px;
+    }
+
+    .sidebar  { grid-column: 1; grid-row: 1 / 4; background: lightblue; color: #1a1a1a; }
+    .header   { grid-column: main-start / main-end; grid-row: 1; background: lightgreen; color: #1a1a1a; }
+    .content  { grid-column: main-start / main-end; grid-row: 2; background: lightyellow; color: #1a1a1a; }
+    .footer   { grid-column: main-start / main-end; grid-row: 3; background: lightcoral; color: #1a1a1a; }
+  </style>
+</head>
+<body>
+
+  <div class="grid">
+    <div class="sidebar">sidebar</div>
+    <div class="header">header</div>
+    <div class="content">content — grid-column: main-start / main-end</div>
+    <div class="footer">footer</div>
+  </div>
+
+</body>
+</html>
