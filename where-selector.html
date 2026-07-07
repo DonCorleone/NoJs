@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>:where() Selector — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
+    .demo {
+      margin: 0 24px;
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .label {
+      font-family: monospace;
+      font-size: 0.75rem;
+      opacity: 0.5;
+      margin-bottom: 8px;
+    }
+
+    /* without :where() — long, high specificity */
+    nav.without ul li a,
+    nav.without ul li button,
+    nav.without ul li span {
+      display: block;
+      padding: 0.5rem 1rem;
+      background: lightblue;
+      color: #1a1a1a;
+      border: none;
+      cursor: pointer;
+      font-family: monospace;
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+
+    /* with :where() — short, zero extra specificity */
+    nav.with ul li :where(a, button, span) {
+      display: block;
+      padding: 0.5rem 1rem;
+      background: lightgreen;
+      color: #1a1a1a;
+      border: none;
+      cursor: pointer;
+      font-family: monospace;
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+
+    /* easy to override because :where() adds zero specificity */
+    nav.with ul li span {
+      background: lightyellow;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>:where(a, button, span)</code> — matches any of the selectors inside, adds zero specificity</li>
+    <li>zero specificity means any single-class rule can override it — no specificity wars</li>
+    <li><code>:is()</code> — same syntax, but does count toward specificity</li>
+  </ul>
+
+  <div class="demo">
+    <div>
+      <div class="label">without :where() — verbose, high specificity</div>
+      <nav class="without">
+        <ul>
+          <li><a href="#">Link</a></li>
+          <li><button>Button</button></li>
+          <li><span>Span</span></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div>
+      <div class="label">with :where() — concise, zero specificity (span easily overridden)</div>
+      <nav class="with">
+        <ul>
+          <li><a href="#">Link</a></li>
+          <li><button>Button</button></li>
+          <li><span>Span — overridden</span></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+</body>
+</html>
