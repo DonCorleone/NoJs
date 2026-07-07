@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Draw Animation — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
+    .demo {
+      margin: 0 24px;
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: draw 2s linear forwards;
+    }
+
+    svg:hover path {
+      stroke-dashoffset: 1;
+      animation: draw 2s linear forwards;
+    }
+
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .slow path { animation-duration: 4s; }
+    .fast path { animation-duration: 0.8s; }
+
+    .label {
+      font-family: monospace;
+      font-size: 0.75rem;
+      opacity: 0.5;
+      margin-top: 6px;
+      text-align: center;
+    }
+
+    figure {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>pathLength="1"</code> — normalises path length to 1 so offsets are unit-independent</li>
+    <li><code>stroke-dashoffset: 1 → 0</code> — slides the dash from fully hidden to fully visible</li>
+    <li><code>stroke-dasharray: 1</code> — one dash exactly as long as the whole path</li>
+  </ul>
+
+  <div class="demo">
+
+    <figure>
+      <svg width="120" height="120" viewBox="0 0 100 100" fill="none">
+        <path pathLength="1" stroke="currentColor" stroke-width="4" stroke-linecap="round"
+          d="M50 10 A40 40 0 1 1 49.99 10" />
+      </svg>
+      <div class="label">circle (2s)</div>
+    </figure>
+
+    <figure class="slow">
+      <svg width="120" height="120" viewBox="0 0 100 100" fill="none">
+        <path pathLength="1" stroke="currentColor" stroke-width="4" stroke-linecap="round"
+          d="M10 80 L30 20 L50 60 L70 20 L90 80" />
+      </svg>
+      <div class="label">zigzag (4s)</div>
+    </figure>
+
+    <figure class="fast">
+      <svg width="120" height="120" viewBox="0 0 100 100" fill="none">
+        <path pathLength="1" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"
+          d="M20 20 L80 20 L80 80 L20 80 Z" />
+      </svg>
+      <div class="label">square (0.8s)</div>
+    </figure>
+
+  </div>
+
+</body>
+</html>

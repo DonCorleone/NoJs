@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Validation — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
+    form {
+      margin: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 320px;
+    }
+
+    input {
+      font-family: monospace;
+      font-size: 0.9rem;
+      padding: 10px 12px;
+      border: 2px solid #ccc;
+      outline: none;
+      width: 100%;
+      box-sizing: border-box;
+      background: inherit;
+      color: inherit;
+    }
+
+    /* only show validation after the user has typed something */
+    input:not(:placeholder-shown):valid {
+      border-color: green;
+    }
+
+    input:not(:placeholder-shown):invalid {
+      border-color: red;
+    }
+
+    /* newer browsers: only show after the field loses focus */
+    input:user-valid {
+      border-color: green;
+    }
+
+    input:user-invalid {
+      border-color: red;
+    }
+
+    button {
+      font-family: monospace;
+      font-size: 0.85rem;
+      padding: 10px 16px;
+      background: lightblue;
+      color: #1a1a1a;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>:not(:placeholder-shown):invalid</code> — only shows error after the user types something</li>
+    <li><code>:user-invalid</code> — newer alternative; triggers after the field loses focus</li>
+    <li>no JS needed — <code>required</code>, <code>type="email"</code>, and <code>pattern</code> handle the logic</li>
+  </ul>
+
+  <form>
+    <input type="text" placeholder="Name" required>
+    <input type="email" placeholder="Email" required>
+    <input type="text" placeholder="Postal code (5 digits)" pattern="\d{5}" required>
+    <button type="submit">Submit</button>
+  </form>
+
+</body>
+</html>
