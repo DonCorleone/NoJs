@@ -59,3 +59,11 @@ Look at `show-modal.html` and `named-grid-lines.html` as the canonical reference
 ## File naming
 
 `{topic}.html` — e.g. `scroll-snap.html`, `details-summary.html`, `sticky-header.html`.
+
+## Git workflow
+
+After creating or updating a snippet:
+
+1. Stage the changed files (`git add <files>`).
+2. Write a short commit message describing the new snippet (e.g. `add css-columns snippet`).
+3. **Do not commit.** Leave staging and the message for the user to review and commit themselves.
