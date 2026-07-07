@@ -60,6 +60,35 @@ Look at `show-modal.html` and `named-grid-lines.html` as the canonical reference
 
 `{topic}.html` — e.g. `scroll-snap.html`, `details-summary.html`, `sticky-header.html`.
 
+## Key things list
+
+Every snippet must include a short `<ul class="keys">` above the demo — 3 bullet points max, each highlighting one essential property or behaviour of the technique. Style it exactly like this:
+
+```html
+<ul class="keys">
+  <li><code>property</code> — one-line explanation</li>
+  <li><code>pattern</code> — one-line explanation</li>
+  <li>plain-text note — no markup needed if there's no property to highlight</li>
+</ul>
+```
+
+Add the shared `.keys` style block to the `<style>` section:
+
+```css
+.keys {
+  margin: 24px 24px 16px;
+  padding: 0;
+  list-style: none;
+  font-family: monospace;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.keys li::before { content: "→ "; opacity: 0.4; }
+```
+
 ## Git workflow
 
 After creating or updating a snippet:

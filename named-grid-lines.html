@@ -8,12 +8,26 @@
       html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
     }
 
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
     .grid {
       display: grid;
       grid-template-columns: 160px [main-start] 1fr [main-end];
       grid-template-rows: auto 1fr auto;
       gap: 6px;
       height: 200px;
+      margin: 0 24px;
     }
 
     .sidebar  { grid-column: 1; grid-row: 1 / 4; background: lightblue; color: #1a1a1a; }
@@ -23,6 +37,12 @@
   </style>
 </head>
 <body>
+
+  <ul class="keys">
+    <li><code>[main-start]</code> / <code>[main-end]</code> — name any grid line inside brackets</li>
+    <li><code>grid-column: main-start / main-end</code> — place items by name, not by number</li>
+    <li>adding or removing tracks won't break placement — names travel with the lines</li>
+  </ul>
 
   <div class="grid">
     <div class="sidebar">sidebar</div>

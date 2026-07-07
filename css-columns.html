@@ -8,10 +8,24 @@
       html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
     }
 
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
     .article {
       column-count: 3;
       column-gap: 24px;
       column-fill: balance;
+      margin: 0 24px;
     }
 
     .article p {
@@ -24,6 +38,12 @@
   </style>
 </head>
 <body>
+
+  <ul class="keys">
+    <li><code>column-count</code> — number of columns; browser handles all line breaking</li>
+    <li><code>column-fill: balance</code> — equalises column heights automatically</li>
+    <li><code>column-gap</code> — gutter between columns, same unit as grid/flex <code>gap</code></li>
+  </ul>
 
   <div class="article">
     <p>The <code>column-count</code> property has been in every major browser since 2011, yet most developers still reach for flexbox or grid the moment they need side-by-side content.</p>

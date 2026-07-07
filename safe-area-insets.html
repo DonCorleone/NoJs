@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Safe Area Insets — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    body {
+      margin: 0;
+      font-family: monospace;
+      font-size: 0.9rem;
+    }
+
+    .content {
+      padding: 24px;
+      padding-left: max(24px, env(safe-area-inset-left));
+      padding-right: max(24px, env(safe-area-inset-right));
+    }
+
+    .nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: lightblue;
+      color: #1a1a1a;
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0;
+      padding-bottom: max(12px, env(safe-area-inset-bottom));
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+
+    .nav span { padding: 4px 16px; }
+
+    .keys {
+      margin: 24px 24px 80px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>viewport-fit=cover</code> — required to extend layout edge-to-edge</li>
+    <li><code>max(24px, env(...))</code> — always keeps a minimum padding on non-notched devices</li>
+    <li><code>env(safe-area-inset-bottom)</code> — pushes the nav above the gesture bar automatically</li>
+  </ul>
+
+  <nav class="nav">
+    <span>Home</span>
+    <span>Search</span>
+    <span>Profile</span>
+  </nav>
+
+</body>
+</html>

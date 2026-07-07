@@ -7,9 +7,28 @@
     @media (prefers-color-scheme: dark) {
       html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
     }
+
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
   </style>
 </head>
 <body>
+
+  <ul class="keys">
+    <li><code>command="show-modal"</code> — opens the target dialog without JS</li>
+    <li><code>commandfor</code> — links the button to the dialog by id</li>
+    <li><code>command="close"</code> — closes it the same way, from inside the dialog</li>
+  </ul>
 
   <button command="show-modal" commandfor="my-dialog">Open dialog</button>
 

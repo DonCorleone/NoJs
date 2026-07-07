@@ -18,11 +18,24 @@
       border-left: 3px solid #f0a500;
     }
 
+    .keys {
+      margin: 16px 32px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
       gap: 24px;
-      padding: 32px;
+      padding: 0 32px 32px;
     }
 
     .card {
@@ -55,6 +68,12 @@
 <body>
 
   <p class="notice">⚠️ Experimental — requires Chrome Canary with flags enabled. Not supported in Firefox or Safari.</p>
+
+  <ul class="keys">
+    <li><code>corner-shape</code> — sets the corner style: <code>round</code>, <code>scoop</code>, <code>bevel</code>, or <code>rect</code></li>
+    <li><code>border-radius</code> — still controls the size; <code>corner-shape</code> only changes the curve direction</li>
+    <li>all shapes share the same math base, so <code>transition: corner-shape</code> animates smoothly</li>
+  </ul>
 
   <div class="grid">
     <div class="card round">round</div>
