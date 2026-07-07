@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" id="top">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Back to Top — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
+    .content {
+      margin: 0 24px 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 60ch;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: lightblue;
+      color: #1a1a1a;
+      text-decoration: none;
+      font-family: monospace;
+      font-size: 0.85rem;
+      padding: 10px 16px;
+    }
+
+    .back-to-top:hover {
+      background: lightcoral;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>id="top"</code> on <code>&lt;html&gt;</code> — the anchor target at the very top of the page</li>
+    <li><code>href="#top"</code> — native browser scroll, no JS needed</li>
+    <li><code>scroll-behavior: smooth</code> on <code>html</code> — animates the jump for free</li>
+  </ul>
+
+  <div class="content">
+    <p>Scroll down to see the button. Click it to smoothly return to the top — no JavaScript involved.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, nisi vel consectetur interdum, nisl nisi aliquam nisi, nec aliquam nisl nisi sit amet nisl.</p>
+    <p>Pellentesque euismod, nisi vel consectetur interdum, nisl nisi aliquam nisi, nec aliquam nisl nisi sit amet nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <p>Nisi vel consectetur interdum, nisl nisi aliquam nisi, nec aliquam nisl nisi sit amet nisl. Pellentesque euismod lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, nisi vel consectetur interdum, nisl nisi aliquam nisi, nec aliquam nisl nisi sit amet nisl.</p>
+    <p>Pellentesque euismod, nisi vel consectetur interdum, nisl nisi aliquam nisi, nec aliquam nisl nisi sit amet nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <p>Nisi vel consectetur interdum, nisl nisi aliquam nisi, nec aliquam nisl nisi sit amet nisl. Pellentesque euismod lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, nisi vel consectetur interdum, nisl nisi aliquam nisi, nec aliquam nisl nisi sit amet nisl.</p>
+    <p>Pellentesque euismod, nisi vel consectetur interdum, nisl nisi aliquam nisi, nec aliquam nisl nisi sit amet nisl. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </div>
+
+  <a class="back-to-top" href="#top">↑ back to top</a>
+
+</body>
+</html>
