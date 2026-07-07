@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Countdown — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
+    @property --c {
+      syntax: "<integer>";
+      inherits: true;
+      initial-value: 0;
+    }
+
+    @keyframes count {
+      from { --c: 10; }
+      to   { --c: 0; }
+    }
+
+    .countdown::after {
+      animation: count 10s linear forwards;
+      counter-reset: c var(--c);
+      content: counter(c);
+      font-family: monospace;
+      font-size: 6rem;
+      font-weight: 700;
+      display: block;
+      margin: 24px 24px 0;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>@property</code> — registers <code>--c</code> as an animatable integer custom property</li>
+    <li><code>counter-reset: c var(--c)</code> — binds the animating value to a CSS counter</li>
+    <li><code>content: counter(c)</code> — displays the live counter value in a pseudo-element</li>
+  </ul>
+
+  <div class="countdown"></div>
+
+</body>
+</html>
