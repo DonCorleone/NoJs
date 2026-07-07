@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resize — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
+    .demo {
+      margin: 0 24px;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .label {
+      font-family: monospace;
+      font-size: 0.75rem;
+      opacity: 0.5;
+      margin-bottom: 8px;
+    }
+
+    .box {
+      background: lightblue;
+      color: #1a1a1a;
+      overflow: auto;
+      padding: 16px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      min-width: 120px;
+      min-height: 80px;
+      width: 160px;
+      height: 100px;
+    }
+
+    .both       { resize: both; }
+    .horizontal { resize: horizontal; }
+    .vertical   { resize: vertical; }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>resize: both | horizontal | vertical</code> — enables drag-to-resize on any element</li>
+    <li><code>overflow: auto</code> — required, without it <code>resize</code> has no effect</li>
+    <li>grab the bottom-right corner handle to resize — works on any block element, not just textareas</li>
+  </ul>
+
+  <div class="demo">
+    <div>
+      <div class="label">resize: both</div>
+      <div class="box both">drag any direction ↔↕</div>
+    </div>
+
+    <div>
+      <div class="label">resize: horizontal</div>
+      <div class="box horizontal">drag left ↔ right</div>
+    </div>
+
+    <div>
+      <div class="label">resize: vertical</div>
+      <div class="box vertical">drag up ↕ down</div>
+    </div>
+  </div>
+
+</body>
+</html>
