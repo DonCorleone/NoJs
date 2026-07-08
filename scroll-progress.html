@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scroll Progress — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
+    /* ── Progress bar ── */
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #a78bfa, #38bdf8, #34d399);
+      transform-origin: left;
+      animation: grow linear;
+      animation-timeline: scroll();
+      z-index: 10;
+    }
+
+    @keyframes grow {
+      from { transform: scaleX(0); }
+      to   { transform: scaleX(1); }
+    }
+
+    /* ── Page content to scroll through ── */
+    .content {
+      max-width: 560px;
+      padding: 8px 24px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .card {
+      background: #f5f0ff;
+      color: #1a1a1a;
+      border-radius: 10px;
+      padding: 20px 24px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .card { background: #1a1a2e; color: #c4b5fd; }
+    }
+
+    .card-num {
+      font-family: monospace;
+      font-size: 0.7rem;
+      opacity: 0.35;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress"></div>
+
+  <ul class="keys">
+    <li><code>animation-timeline: scroll()</code> — links animation progress directly to the page scroll position</li>
+    <li><code>animation-timeline</code> replaces <code>animation-duration</code> — time is driven by scroll, not a clock</li>
+    <li><code>transform: scaleX()</code> + <code>transform-origin: left</code> — scales from the left edge, not from center</li>
+  </ul>
+
+  <div class="content">
+    <div class="card"><div class="card-num">01</div>Scroll down to see the progress bar fill. It stays pinned to the top of the viewport and grows as you move through the page — no JavaScript involved.</div>
+    <div class="card"><div class="card-num">02</div>The <code>animation-timeline: scroll()</code> property links the keyframe animation directly to the document's scroll position. No scroll event listeners. No <code>requestAnimationFrame</code>.</div>
+    <div class="card"><div class="card-num">03</div>Because it's a CSS animation, it's hardware-accelerated. The browser handles the compositing — smooth, jank-free, and off the main thread.</div>
+    <div class="card"><div class="card-num">04</div>The keyframe scales the bar horizontally: <code>from { transform: scaleX(0) }</code> to <code>to { transform: scaleX(1) }</code>. Animating <code>transform</code> instead of <code>width</code> keeps it GPU-accelerated and glitch-free.</div>
+    <div class="card"><div class="card-num">05</div>You can attach <code>animation-timeline: scroll()</code> to any element and any property — opacity, transform, color. The progress bar is just the most familiar use case.</div>
+    <div class="card"><div class="card-num">06</div>Browser support is around 73% as of 2025 — Chrome and Edge are fully on board, Firefox too. Safari is the main holdout, so consider it a progressive enhancement for now.</div>
+    <div class="card"><div class="card-num">07</div>Keep scrolling — almost there.</div>
+    <div class="card"><div class="card-num">08</div>That's 100%. The bar is full. All done — and not a single line of JavaScript was written.</div>
+  </div>
+
+</body>
+</html>
