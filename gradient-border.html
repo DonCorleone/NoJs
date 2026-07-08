@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gradient Border — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
+    /* ── @property registration for animatable angle ── */
+    @property --angle {
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    /* ── Demo layout ── */
+    .demo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      padding: 32px 24px;
+      align-items: center;
+    }
+
+    /* ── Shared card base ── */
+    .card {
+      width: 200px;
+      padding: 24px 20px;
+      border-radius: 12px;
+      font-family: system-ui, sans-serif;
+      font-size: 0.9rem;
+      color: #1a1a1a;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .card { color: #e8e8f0; }
+    }
+
+    /* ── Static gradient border ── */
+    .card-static {
+      border: 3px solid transparent;
+      background:
+        linear-gradient(#f5f0ff, #f5f0ff) padding-box,
+        linear-gradient(135deg, #a78bfa, #38bdf8, #34d399) border-box;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .card-static {
+        background:
+          linear-gradient(#1e1a2e, #1e1a2e) padding-box,
+          linear-gradient(135deg, #a78bfa, #38bdf8, #34d399) border-box;
+      }
+    }
+
+    /* ── Animated gradient border ── */
+    .card-animated {
+      border: 3px solid transparent;
+      background:
+        linear-gradient(#f5f0ff, #f5f0ff) padding-box,
+        linear-gradient(var(--angle), #a78bfa, #38bdf8, #34d399, #a78bfa) border-box;
+      animation: spin-border 3s linear infinite;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .card-animated {
+        background:
+          linear-gradient(#1e1a2e, #1e1a2e) padding-box,
+          linear-gradient(var(--angle), #a78bfa, #38bdf8, #34d399, #a78bfa) border-box;
+      }
+    }
+
+    @keyframes spin-border {
+      to { --angle: 360deg; }
+    }
+
+    /* ── Hover-triggered animated border ── */
+    .card-hover {
+      border: 3px solid transparent;
+      background:
+        linear-gradient(#f5f0ff, #f5f0ff) padding-box,
+        linear-gradient(var(--angle), #a78bfa, #f472b6, #38bdf8) border-box;
+      transition: --angle 0.6s ease;
+    }
+
+    .card-hover:hover {
+      --angle: 180deg;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .card-hover {
+        background:
+          linear-gradient(#1e1a2e, #1e1a2e) padding-box,
+          linear-gradient(var(--angle), #a78bfa, #f472b6, #38bdf8) border-box;
+      }
+    }
+
+    /* ── Button with gradient border ── */
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 99px;
+      border: 2px solid transparent;
+      font-family: system-ui, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: default;
+      color: #1a1a1a;
+      background:
+        linear-gradient(#fff, #fff) padding-box,
+        linear-gradient(var(--angle), #a78bfa, #38bdf8, #34d399, #a78bfa) border-box;
+      animation: spin-border 2s linear infinite;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .btn {
+        color: #e8e8f0;
+        background:
+          linear-gradient(#0f0f13, #0f0f13) padding-box,
+          linear-gradient(var(--angle), #a78bfa, #38bdf8, #34d399, #a78bfa) border-box;
+      }
+    }
+
+    .label {
+      font-family: monospace;
+      font-size: 0.7rem;
+      opacity: 0.45;
+      margin-top: 8px;
+      display: block;
+    }
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>background: … padding-box, … border-box</code> — two background layers clip to different box edges</li>
+    <li><code>border: N px solid transparent</code> — transparent border creates space for the gradient to show through</li>
+    <li><code>@property --angle</code> — registers a typed custom property so CSS can interpolate the gradient angle</li>
+  </ul>
+
+  <div class="demo">
+
+    <div class="item">
+      <div class="card card-static">
+        Static gradient border that works with any <code>border-radius</code>.
+      </div>
+      <span class="label">static</span>
+    </div>
+
+    <div class="item">
+      <div class="card card-animated">
+        The gradient angle is animated via <code>@keyframes</code> and <code>@property</code>.
+      </div>
+      <span class="label">animated</span>
+    </div>
+
+    <div class="item">
+      <div class="card card-hover">
+        Hover to transition the gradient angle smoothly — no JavaScript.
+      </div>
+      <span class="label">hover transition</span>
+    </div>
+
+    <div class="item">
+      <button class="btn">Spinning border button</button>
+      <span class="label">pill button</span>
+    </div>
+
+  </div>
+
+</body>
+</html>
