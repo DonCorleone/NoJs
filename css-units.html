@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Units — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
+    /* ── Layout ── */
+    .demo {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      padding: 8px 24px 32px;
+    }
+
+    .row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .unit-label {
+      font-family: monospace;
+      font-size: 0.72rem;
+      opacity: 0.45;
+    }
+
+    /* ── ch: column width for readable text ── */
+    .ch-example {
+      max-width: 60ch;
+      background: #e0f2fe;
+      color: #1a1a1a;
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .ch-example { background: #0c2233; color: #bae6fd; }
+    }
+
+    /* ── lh: vertical gap that scales with line-height ── */
+    .lh-example {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .lh-example p + p {
+      margin-top: 1lh;
+    }
+
+    /* ── cap: icon aligned to cap-height ── */
+    .cap-example {
+      display: flex;
+      align-items: first baseline;
+      gap: 0.5ch;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .cap-example .icon {
+      display: inline-block;
+      width: 1cap;
+      height: 1cap;
+      background: #a78bfa;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    /* ── cqi: scales with container inline size ── */
+    .cqi-wrapper {
+      container-type: inline-size;
+      resize: horizontal;
+      overflow: hidden;
+      border: 1px dashed currentColor;
+      padding: 16px;
+      border-radius: 6px;
+      min-width: 120px;
+      max-width: 100%;
+      width: 340px;
+      opacity: 0.8;
+    }
+
+    .cqi-example {
+      font-size: clamp(0.75rem, 4cqi, 2rem);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ── vmin / vmax ── */
+    .vmin-example {
+      width: 20vmin;
+      height: 20vmin;
+      background: #34d399;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-family: monospace;
+      color: #1a1a1a;
+    }
+
+    .vmax-example {
+      width: 8vmax;
+      height: 8vmax;
+      background: #f472b6;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-family: monospace;
+      color: #1a1a1a;
+    }
+
+    .vminmax-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>ch</code> / <code>lh</code> / <code>cap</code> — font-relative units tied to character width, line height, and capital letter height</li>
+    <li><code>cqi</code> — scales with the nearest container's inline size, not the viewport</li>
+    <li><code>vmin</code> / <code>vmax</code> — relative to the shorter or longer side of the viewport</li>
+  </ul>
+
+  <div class="demo">
+
+    <!-- ch -->
+    <div class="row">
+      <span class="unit-label">ch — max-width: 60ch — readable line length regardless of font size</span>
+      <div class="ch-example">
+        This paragraph is capped at 60ch. As the font size grows or shrinks, the column
+        stays at roughly 60 characters wide — keeping line lengths comfortable to read.
+      </div>
+    </div>
+
+    <!-- lh -->
+    <div class="row">
+      <span class="unit-label">lh — margin-top: 1lh — gap equals exactly one line of text</span>
+      <div class="lh-example">
+        <p>First paragraph. The gap below matches the line-height exactly.</p>
+        <p>Second paragraph. Change the font size and the rhythm stays perfect.</p>
+      </div>
+    </div>
+
+    <!-- cap -->
+    <div class="row">
+      <span class="unit-label">cap — width: 1cap / height: 1cap — icon sized to the capital letter height</span>
+      <div class="cap-example">
+        <span class="icon"></span>
+        Heading
+      </div>
+    </div>
+
+    <!-- cqi -->
+    <div class="row">
+      <span class="unit-label">cqi — font-size: 4cqi — drag the box corner to resize</span>
+      <div class="cqi-wrapper">
+        <div class="cqi-example">Scales with container</div>
+      </div>
+    </div>
+
+    <!-- vmin / vmax -->
+    <div class="row">
+      <span class="unit-label">vmin / vmax — sized to the shorter / longer viewport side</span>
+      <div class="vminmax-row">
+        <div class="vmin-example">20vmin</div>
+        <div class="vmax-example">8vmax</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
