@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>External Link Icon — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
+    /* ── The one selector that does it all ── */
+    a[href^="https"]:not([href*="yourdomain.com"])::after {
+      content: "";
+      display: inline-block;
+      width: 0.7em;
+      height: 0.7em;
+      margin-left: 0.25em;
+      vertical-align: middle;
+      /* dark stroke for light mode */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.6;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      /* light stroke for dark mode */
+      a[href^="https"]:not([href*="yourdomain.com"])::after {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e8e8f0' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E");
+      }
+    }
+
+    /* ── Demo layout ── */
+    .demo {
+      padding: 8px 24px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      max-width: 560px;
+    }
+
+    .group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .group-label {
+      font-family: monospace;
+      font-size: 0.7rem;
+      opacity: 0.4;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    a {
+      color: #6366f1;
+      text-underline-offset: 3px;
+    }
+
+    p {
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>a[href^="https"]:not([href*="yourdomain.com"])</code> — targets external links only, skips internal ones</li>
+    <li><code>::after</code> with <code>content: ""</code> — injects an inline icon without any extra HTML</li>
+    <li>inline SVG via <code>background-image: url("data:image/svg+xml,…")</code> — no image file needed</li>
+  </ul>
+
+  <div class="demo">
+
+    <div class="group">
+      <span class="group-label">External — icon appears ✓</span>
+      <p>
+        Read the docs on
+        <a href="https://developer.mozilla.org">MDN Web Docs</a>,
+        check the spec on
+        <a href="https://www.w3.org">W3C</a>,
+        or browse components on
+        <a href="https://github.com">GitHub</a>.
+      </p>
+    </div>
+
+    <div class="group">
+      <span class="group-label">Internal — no icon ✓</span>
+      <p>
+        Go back to the
+        <a href="https://yourdomain.com/">homepage</a>
+        or read our
+        <a href="https://yourdomain.com/about">about page</a>.
+      </p>
+    </div>
+
+    <div class="group">
+      <span class="group-label">Mixed paragraph — auto-detected</span>
+      <p>
+        We built this site with inspiration from
+        <a href="https://css-tricks.com">CSS-Tricks</a>
+        and our own
+        <a href="https://yourdomain.com/blog">blog</a>.
+        Additional references include
+        <a href="https://web.dev">web.dev</a>
+        and the
+        <a href="https://yourdomain.com/docs">internal docs</a>.
+      </p>
+    </div>
+
+  </div>
+
+</body>
+</html>
