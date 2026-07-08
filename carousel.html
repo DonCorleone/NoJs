@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Carousel — NoJS</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
+    }
+
+    .keys {
+      margin: 24px 24px 16px;
+      padding: 0;
+      list-style: none;
+      font-family: monospace;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .keys li::before { content: "→ "; opacity: 0.4; }
+
+    .track {
+      --width:    160px;
+      --height:    64px;
+      --quantity:     8;
+      --duration:   20s;
+
+      position: relative;
+      width: 100%;
+      height: var(--height);
+      overflow: hidden;
+      mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 10%,
+        black 90%,
+        transparent 100%
+      );
+    }
+
+    /* pause on hover or keyboard focus */
+    .track:hover .item,
+    .track:has(:focus) .item {
+      animation-play-state: paused;
+    }
+
+    .item {
+      position: absolute;
+      top: 0;
+      left: 100%;
+      width: var(--width);
+      height: var(--height);
+      animation: slide var(--duration) linear infinite;
+      animation-delay: calc(
+        (var(--duration) / var(--quantity)) * (var(--position) - 1) - var(--duration)
+      );
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: lightblue;
+      color: #1a1a1a;
+      outline-offset: 2px;
+    }
+
+    @keyframes slide {
+      to { left: calc(var(--width) * -1); }
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>animation-delay</code> stagger formula spaces items evenly so the track starts full</li>
+    <li><code>mask-image</code> gradient fades items in/out at the edges — no extra DOM needed</li>
+    <li><code>:has(:focus)</code> pauses the animation for keyboard users — no JS event listeners</li>
+  </ul>
+
+  <div class="track">
+    <div class="item" style="--position:1" tabindex="0">Figma</div>
+    <div class="item" style="--position:2" tabindex="0">React</div>
+    <div class="item" style="--position:3" tabindex="0">Angular</div>
+    <div class="item" style="--position:4" tabindex="0">Vue</div>
+    <div class="item" style="--position:5" tabindex="0">Svelte</div>
+    <div class="item" style="--position:6" tabindex="0">TypeScript</div>
+    <div class="item" style="--position:7" tabindex="0">Tailwind</div>
+    <div class="item" style="--position:8" tabindex="0">Vite</div>
+  </div>
+
+</body>
+</html>
