@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Carousel — NoJS</title>
+  <meta name="pattern:name" content="image-carousel-scroll-snap">
+  <meta name="pattern:shows" content="A dot-navigated image carousel using scroll-snap and anchor links — no JavaScript.">
+  <meta name="pattern:techniques" content="scroll-snap-type, scroll-snap-align, anchor links, scrollbar-width: none">
+  <meta name="pattern:css-features" content="css-snappoints, css-overflow">
+  <link rel="stylesheet" href="../theme.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .carousel-wrap {
+      position: relative;
+      max-width: 560px;
+      margin: 24px;
+    }
+
+    /* ── The scroller ── */
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      border-radius: 14px;
+    }
+
+    .carousel::-webkit-scrollbar { display: none; }
+
+    /* ── Each slide ── */
+    .slide {
+      flex: 0 0 100%;
+      scroll-snap-align: center;
+      height: 320px;
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: inherit;
+      filter: brightness(0.55);
+      z-index: 0;
+    }
+
+    .slide span {
+      position: relative;
+      z-index: 1;
+      background: #0005;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    .slide:nth-child(1) { background: linear-gradient(135deg, #667eea, #764ba2); }
+    .slide:nth-child(2) { background: linear-gradient(135deg, #f093fb, #f5576c); }
+    .slide:nth-child(3) { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+    .slide:nth-child(4) { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+    .slide:nth-child(5) { background: linear-gradient(135deg, #fa709a, #fee140); }
+
+    /* ── Dot markers ── */
+    .markers {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .marker {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.25;
+      transition: opacity 0.2s;
+    }
+
+    .marker:hover { opacity: 0.7; }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>scroll-snap-type: x mandatory</code> — locks scrolling to whole slides, no partial stops</li>
+    <li><code>scroll-snap-align: center</code> — each slide snaps to the center of the viewport</li>
+    <li>dot markers are plain anchor links — <code>href="#slide-2"</code> scrolls there, <code>scroll-behavior: smooth</code> animates it</li>
+  </ul>
+
+  <div class="carousel-wrap">
+    <div class="carousel">
+      <div class="slide" id="slide-1"><span>Aurora Borealis — Iceland</span></div>
+      <div class="slide" id="slide-2"><span>Lavender Fields — Provence</span></div>
+      <div class="slide" id="slide-3"><span>Frozen Lake — Patagonia</span></div>
+      <div class="slide" id="slide-4"><span>Bamboo Forest — Kyoto</span></div>
+      <div class="slide" id="slide-5"><span>Salt Flats — Bolivia</span></div>
+    </div>
+
+    <div class="markers">
+      <a class="marker" href="#slide-1"></a>
+      <a class="marker" href="#slide-2"></a>
+      <a class="marker" href="#slide-3"></a>
+      <a class="marker" href="#slide-4"></a>
+      <a class="marker" href="#slide-5"></a>
+    </div>
+  </div>
+
+</body>
+</html>
