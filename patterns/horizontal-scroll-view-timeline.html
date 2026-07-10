@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Horizontal Scroll — NoJS</title>
+  <meta name="pattern:name" content="horizontal-scroll-view-timeline">
+  <meta name="pattern:shows" content="Cards that scroll horizontally as the user scrolls vertically, driven entirely by CSS scroll-driven animations — no JavaScript.">
+  <meta name="pattern:techniques" content="scroll-timeline-name, animation-timeline, position: sticky, width: max-content">
+  <meta name="pattern:css-features" content="css-scroll-driven-animations">
+  <link rel="stylesheet" href="../theme.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body { font-family: monospace; }
+
+    .keys { margin: 32px 32px 24px; }
+
+    .scroll-container {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-timeline-name: --scroller;
+    }
+
+    .scroll-inner {
+      height: 400vh;
+    }
+
+    .sticky-viewport {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .card-track {
+      display: flex;
+      gap: 24px;
+      padding: 0 32px;
+      width: max-content;
+      animation: move-left linear forwards;
+      animation-timeline: --scroller;
+    }
+
+    @keyframes move-left {
+      from { transform: translateX(0); }
+      to   { transform: translateX(calc(-100% + 100vw)); }
+    }
+
+    .card {
+      flex: 0 0 340px;
+      height: 460px;
+      border-radius: 20px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 10px;
+      color: #1a1a1a;
+    }
+
+    .card:nth-child(1) { background: #bfdbfe; }
+    .card:nth-child(2) { background: #bbf7d0; }
+    .card:nth-child(3) { background: #fde68a; }
+    .card:nth-child(4) { background: #fecaca; }
+    .card:nth-child(5) { background: #e9d5ff; }
+    .card:nth-child(6) { background: #a5f3fc; }
+
+    .card-num   { font-size: 0.7rem; opacity: 0.4; letter-spacing: 0.1em; }
+    .card-title { font-size: 1.3rem; font-weight: 700; line-height: 1.2; }
+    .card-sub   { font-size: 0.82rem; opacity: 0.55; line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>overflow-y: scroll</code> + <code>scroll-timeline-name</code> — the container must be a real scroller; the name lets deeply nested children reach it</li>
+    <li><code>width: max-content</code> — makes the track wider than the viewport so <code>translateX</code> has real distance to cover</li>
+    <li><code>position: sticky</code> — pins the card row while 400 vh of inner content scrolls behind it</li>
+  </ul>
+
+  <div class="scroll-container">
+    <div class="scroll-inner">
+      <div class="sticky-viewport">
+        <div class="card-track">
+
+          <div class="card">
+            <span class="card-num">01</span>
+            <div class="card-title">overflow-y: scroll</div>
+            <div class="card-sub">The container must be a real scroller — a plain tall div won't create a timeline.</div>
+          </div>
+
+          <div class="card">
+            <span class="card-num">02</span>
+            <div class="card-title">scroll-timeline-name</div>
+            <div class="card-sub">Names the scroller so deeply nested children can reach it — needed because overflow: hidden on .sticky-viewport would intercept scroll(nearest).</div>
+          </div>
+
+          <div class="card">
+            <span class="card-num">03</span>
+            <div class="card-title">position: sticky</div>
+            <div class="card-sub">Pins the card row while 400 vh of content scrolls past behind it.</div>
+          </div>
+
+          <div class="card">
+            <span class="card-num">04</span>
+            <div class="card-title">width: max-content</div>
+            <div class="card-sub">Lets the track grow as wide as all cards — without it, translateX has nowhere to go.</div>
+          </div>
+
+          <div class="card">
+            <span class="card-num">05</span>
+            <div class="card-title">animation-timeline</div>
+            <div class="card-sub">Scroll down = move left. 1-to-1, no timers, no JavaScript.</div>
+          </div>
+
+          <div class="card">
+            <span class="card-num">06</span>
+            <div class="card-title">calc(-100% + 100vw)</div>
+            <div class="card-sub">Moves the track left by its full width, minus one viewport — last card stops flush at the edge.</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
