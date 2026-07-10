@@ -7,11 +7,8 @@
   <meta name="pattern:shows" content="Card corners rendered as round, scoop, bevel, or rectangular shapes, with smooth transitions between them on hover.">
   <meta name="pattern:techniques" content="corner-shape property, transition: corner-shape">
   <meta name="pattern:css-features" content="mdn-css_properties_corner-shape">
+  <link rel="stylesheet" href="../theme.css">
   <style>
-    @media (prefers-color-scheme: dark) {
-      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
-    }
-
     .notice {
       font-family: monospace;
       font-size: 0.8rem;
@@ -22,18 +19,7 @@
       border-left: 3px solid #f0a500;
     }
 
-    .keys {
-      margin: 16px 32px;
-      padding: 0;
-      list-style: none;
-      font-family: monospace;
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .keys li::before { content: "→ "; opacity: 0.4; }
+    .keys { margin: 16px 32px; }
 
     .grid {
       display: grid;

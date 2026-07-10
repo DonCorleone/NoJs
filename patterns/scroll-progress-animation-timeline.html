@@ -7,24 +7,8 @@
   <meta name="pattern:shows" content="A fixed progress bar at the top of the page that fills up as the user scrolls, driven entirely by CSS.">
   <meta name="pattern:techniques" content="animation-timeline: scroll(), scaleX() transform keyframes">
   <meta name="pattern:css-features" content="css-scroll-driven-animations">
+  <link rel="stylesheet" href="../theme.css">
   <style>
-    @media (prefers-color-scheme: dark) {
-      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
-    }
-
-    .keys {
-      margin: 24px 24px 16px;
-      padding: 0;
-      list-style: none;
-      font-family: monospace;
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .keys li::before { content: "→ "; opacity: 0.4; }
-
     /* ── Progress bar ── */
     .progress {
       position: fixed;

@@ -7,24 +7,8 @@
   <meta name="pattern:shows" content="Five demos of lesser-known CSS units — ch, lh, cap, cqi, vmin/vmax — for readable line lengths, vertical rhythm, icon sizing, and container-based type scaling.">
   <meta name="pattern:techniques" content="ch/lh/cap font-relative units, cqi container query units, vmin/vmax viewport units">
   <meta name="pattern:css-features" content="rem, container-queries, viewport-units">
+  <link rel="stylesheet" href="../theme.css">
   <style>
-    @media (prefers-color-scheme: dark) {
-      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
-    }
-
-    .keys {
-      margin: 24px 24px 16px;
-      padding: 0;
-      list-style: none;
-      font-family: monospace;
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .keys li::before { content: "→ "; opacity: 0.4; }
-
     /* ── Layout ── */
     .demo {
       display: flex;

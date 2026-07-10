@@ -8,27 +8,11 @@
   <meta name="pattern:shows" content="A 'back to top' link that smoothly scrolls to the top of the page using only an anchor and native smooth scrolling.">
   <meta name="pattern:techniques" content="anchor link to #id, scroll-behavior: smooth">
   <meta name="pattern:css-features" content="css-scroll-behavior">
+  <link rel="stylesheet" href="../theme.css">
   <style>
-    @media (prefers-color-scheme: dark) {
-      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
-    }
-
     html {
       scroll-behavior: smooth;
     }
-
-    .keys {
-      margin: 24px 24px 16px;
-      padding: 0;
-      list-style: none;
-      font-family: monospace;
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .keys li::before { content: "→ "; opacity: 0.4; }
 
     .content {
       margin: 0 24px 120px;

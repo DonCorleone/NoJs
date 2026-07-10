@@ -8,24 +8,8 @@
   <meta name="pattern:shows" content="Plain div boxes that users can drag-resize in both, horizontal, or vertical directions, just like a textarea.">
   <meta name="pattern:techniques" content="resize: both|horizontal|vertical, overflow: auto">
   <meta name="pattern:css-features" content="css-resize">
+  <link rel="stylesheet" href="../theme.css">
   <style>
-    @media (prefers-color-scheme: dark) {
-      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
-    }
-
-    .keys {
-      margin: 24px 24px 16px;
-      padding: 0;
-      list-style: none;
-      font-family: monospace;
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .keys li::before { content: "→ "; opacity: 0.4; }
-
     .demo {
       margin: 0 24px;
       display: flex;

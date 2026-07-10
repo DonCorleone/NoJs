@@ -8,26 +8,16 @@
   <meta name="pattern:shows" content="Four full-height sections that reveal how vh, svh, lvh, and dvh differ when the mobile browser toolbar shows or hides.">
   <meta name="pattern:techniques" content="100vh vs 100svh vs 100lvh vs 100dvh">
   <meta name="pattern:css-features" content="viewport-unit-variants">
+  <link rel="stylesheet" href="../theme.css">
   <style>
-    @media (prefers-color-scheme: dark) {
-      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
-    }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html { scroll-behavior: smooth; }
 
     .keys {
       padding: 24px 24px 16px;
-      list-style: none;
-      font-family: monospace;
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+      margin: 0;
     }
-
-    .keys li::before { content: "→ "; opacity: 0.4; }
 
     .nav {
       display: flex;

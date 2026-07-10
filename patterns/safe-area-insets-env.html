@@ -8,11 +8,8 @@
   <meta name="pattern:shows" content="Page content and a bottom nav bar that automatically avoid device notches, rounded corners, and gesture bars.">
   <meta name="pattern:techniques" content="env(safe-area-inset-*), viewport-fit=cover, max() for minimum padding fallback">
   <meta name="pattern:css-features" content="css-env-function">
+  <link rel="stylesheet" href="../theme.css">
   <style>
-    @media (prefers-color-scheme: dark) {
-      html { background: #0f0f13; color: #e8e8f0; color-scheme: dark; }
-    }
-
     body {
       margin: 0;
       font-family: monospace;
@@ -42,18 +39,7 @@
 
     .nav span { padding: 4px 16px; }
 
-    .keys {
-      margin: 24px 24px 80px;
-      padding: 0;
-      list-style: none;
-      font-family: monospace;
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .keys li::before { content: "→ "; opacity: 0.4; }
+    .keys { margin-bottom: 80px; }
   </style>
 </head>
 <body>
