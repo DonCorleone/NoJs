@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FAQ Accordion — NoJS</title>
+  <meta name="pattern:name" content="faq-accordion-details-summary">
+  <meta name="pattern:shows" content="A styled FAQ accordion using native details/summary elements — no JavaScript, no ARIA wiring needed.">
+  <meta name="pattern:techniques" content="details/summary, ::marker, details[open], summary::before toggle icon">
+  <meta name="pattern:css-features" content="css-marker-pseudo, details">
+  <link rel="stylesheet" href="../theme.css">
+  <style>
+    .faq {
+      margin: 24px;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 520px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .faq { border-color: #2e2e3e; }
+    }
+
+    details {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    details:last-child {
+      border-bottom: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      details { border-color: #2e2e3e; }
+    }
+
+    summary {
+      position: relative;
+      list-style: none;
+      padding: 18px 52px 18px 20px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    summary:hover { opacity: 0.7; }
+
+    /* remove the default triangle */
+    summary::marker { content: ""; }
+
+    /* + icon, positioned to the right */
+    summary::before {
+      content: "+";
+      position: absolute;
+      inset-inline-end: 20px;
+      font-size: 1.1rem;
+      font-weight: 400;
+      transition: transform 0.25s ease;
+    }
+
+    /* rotate to × when open */
+    details[open] summary::before {
+      transform: rotate(45deg);
+    }
+
+    .section-label {
+      margin: 24px 24px 8px;
+      font-size: 0.72rem;
+      font-family: monospace;
+      opacity: 0.45;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .answer {
+      padding: 0 20px 18px;
+      font-size: 0.875rem;
+      line-height: 1.7;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>&lt;details&gt;</code> / <code>&lt;summary&gt;</code> — browser-native toggle, no JS or ARIA needed</li>
+    <li><code>summary::marker { content: "" }</code> — removes the default triangle so you can supply your own icon</li>
+    <li><code>details[name]</code> — shared <code>name</code> creates an exclusive group: opening one closes the others</li>
+  </ul>
+
+  <div class="section-label">independent — multiple can be open</div>
+  <div class="faq">
+
+    <details>
+      <summary>What is the tallest mountain on Earth?</summary>
+      <p class="answer">Mount Everest, standing at 8,849 m above sea level. Its peak sits in the jet stream, where winds regularly exceed 200 km/h.</p>
+    </details>
+
+    <details>
+      <summary>How do bees navigate without GPS?</summary>
+      <p class="answer">By reading the sun's position and polarised light patterns in the sky — even on overcast days. They also communicate distance and direction through the waggle dance.</p>
+    </details>
+
+    <details open>
+      <summary>Why is the sky blue?</summary>
+      <p class="answer">Rayleigh scattering. Shorter blue wavelengths bounce off air molecules far more than red ones, flooding the sky with blue light while reds travel straight through.</p>
+    </details>
+
+    <details>
+      <summary>How long would it take to drive to the Moon?</summary>
+      <p class="answer">At a steady 100 km/h it would take roughly 160 days — assuming the motorway extends that far and there are enough service stations along the way.</p>
+    </details>
+
+  </div>
+
+  <div class="section-label">exclusive — <code>name="accordion"</code> closes others on open</div>
+  <div class="faq">
+
+    <details name="accordion" open>
+      <summary>What makes a perfect espresso?</summary>
+      <p class="answer">About 9 bars of pressure, 90–96 °C water, 25–30 seconds of extraction, and freshly ground beans within minutes of pulling the shot.</p>
+    </details>
+
+    <details name="accordion">
+      <summary>Why does coffee taste bitter sometimes?</summary>
+      <p class="answer">Over-extraction — too fine a grind, too hot water, or too long a brew pulls bitter compounds out after all the good flavours are already gone.</p>
+    </details>
+
+    <details name="accordion">
+      <summary>What is the difference between arabica and robusta?</summary>
+      <p class="answer">Arabica is smoother and more aromatic, grown at high altitude. Robusta is stronger, more bitter, higher in caffeine, and far hardier to grow.</p>
+    </details>
+
+  </div>
+
+</body>
+</html>
