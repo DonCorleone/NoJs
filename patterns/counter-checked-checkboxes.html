@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Counter — NoJS</title>
+  <meta name="pattern:name" content="counter-checked-checkboxes">
+  <meta name="pattern:shows" content="A live count of checked checkboxes driven entirely by CSS counters and :checked — zero JavaScript.">
+  <meta name="pattern:techniques" content="counter-reset, counter-increment on :checked, content: counter()">
+  <meta name="pattern:css-features" content="css-counter-styles, css-counters">
+  <link rel="stylesheet" href="../theme.css">
+  <style>
+
+    /* ── The entire counter logic — 3 lines ── */
+    body          { counter-reset: checked; }
+    input:checked { counter-increment: checked; }
+    .total::after { content: counter(checked); }
+
+    /* ── Layout ── */
+    .demo {
+      margin: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* ── Task list ── */
+    .tasks {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .task {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1rem;
+      font-family: system-ui, sans-serif;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .task input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #a78bfa;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .task input:checked + span {
+      opacity: 0.4;
+      text-decoration: line-through;
+    }
+
+    /* ── Total display ── */
+    .total-bar {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      opacity: 0.7;
+      border-top: 1px solid #2e2e3e;
+      padding-top: 16px;
+    }
+
+    .total {
+      font-size: 2.5rem;
+      font-weight: 700;
+      font-family: monospace;
+      color: #a78bfa;
+      line-height: 1;
+      opacity: 1;
+    }
+
+    .total-label {
+      font-size: 0.85rem;
+      font-family: monospace;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>counter-reset: n</code> — declares the counter and sets it to 0</li>
+    <li><code>input:checked { counter-increment: n }</code> — bumps the count for every checked input in the cascade</li>
+    <li><code>content: counter(n)</code> — renders the live value inside a pseudo-element, no JS needed</li>
+  </ul>
+
+  <div class="demo">
+
+    <div class="tasks">
+      <label class="task"><input type="checkbox"><span>Design the component</span></label>
+      <label class="task"><input type="checkbox"><span>Write the CSS</span></label>
+      <label class="task"><input type="checkbox"><span>Remove all the JavaScript</span></label>
+      <label class="task"><input type="checkbox"><span>Test in every browser</span></label>
+      <label class="task"><input type="checkbox"><span>Ship it</span></label>
+    </div>
+
+    <div class="total-bar">
+      <span class="total"></span>
+      <span class="total-label">of 5 tasks done</span>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>accent-color — NoJS</title>
+  <meta name="pattern:name" content="accent-color-form-elements">
+  <meta name="pattern:shows" content="Checkboxes, radios, and range sliders recolored to match a brand palette — one property on the parent, no wrappers, no custom components.">
+  <meta name="pattern:techniques" content="accent-color, inherits to child form controls">
+  <meta name="pattern:css-features" content="css-accent-color">
+  <link rel="stylesheet" href="../theme.css">
+  <style>
+
+    .demo {
+      margin: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .label {
+      font-family: monospace;
+      font-size: 0.75rem;
+      opacity: 0.45;
+    }
+
+    .row {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    input[type="range"] { width: 120px; }
+
+    /* ── Branded rows — accent-color on the parent, all inputs inherit ── */
+    .brand-purple { accent-color: #a78bfa; }
+    .brand-pink   { accent-color: #f472b6; }
+    .brand-green  { accent-color: #34d399; }
+    .brand-amber  { accent-color: #fbbf24; }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>accent-color</code> — recolors checkboxes, radios, and range sliders in one declaration</li>
+    <li>set it on a parent and all form controls inside inherit it — no per-element repetition</li>
+    <li>native behavior and accessibility stay intact — no wrappers, no JS, no ARIA hacks</li>
+  </ul>
+
+  <div class="demo">
+
+    <div class="group">
+      <div class="label">browser default</div>
+      <div class="row">
+        <input type="checkbox" checked>
+        <input type="radio" checked>
+        <input type="range" value="65">
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="label">accent-color: #a78bfa</div>
+      <div class="row brand-purple">
+        <input type="checkbox" checked>
+        <input type="radio" checked>
+        <input type="range" value="65">
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="label">accent-color: #f472b6</div>
+      <div class="row brand-pink">
+        <input type="checkbox" checked>
+        <input type="radio" checked>
+        <input type="range" value="65">
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="label">accent-color: #34d399</div>
+      <div class="row brand-green">
+        <input type="checkbox" checked>
+        <input type="radio" checked>
+        <input type="range" value="65">
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="label">accent-color: #fbbf24</div>
+      <div class="row brand-amber">
+        <input type="checkbox" checked>
+        <input type="radio" checked>
+        <input type="range" value="65">
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

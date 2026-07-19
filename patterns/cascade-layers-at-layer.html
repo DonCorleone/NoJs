@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>@layer — NoJS</title>
+  <meta name="pattern:name" content="cascade-layers-at-layer">
+  <meta name="pattern:shows" content="Cascade layers declared once control which styles win — layer order beats specificity, visualised as overlapping squares where the later layer always paints on top regardless of selector weight.">
+  <meta name="pattern:techniques" content="@layer declaration, layer order beats specificity, unlayered styles sit above all layers">
+  <meta name="pattern:css-features" content="css-cascade-5">
+  <link rel="stylesheet" href="../theme.css">
+  <style>
+
+    /* ── Layer order declared once ── */
+    @layer base, components, utilities;
+
+    /* Each layer owns exactly one class — identical specificity (1 class each).
+       The visual stacking order on screen is determined purely by layer order,
+       not by DOM order or selector weight. */
+
+    @layer base       { .sq-base       { background: #ef4444; } } /* red    — lowest  */
+    @layer components { .sq-components { background: #a78bfa; } } /* purple — middle  */
+    @layer utilities  { .sq-utilities  { background: #34d399; } } /* green  — highest */
+
+    /* ── Layout ── */
+    .demo {
+      margin: 0 24px;
+      display: flex;
+      gap: 56px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .label {
+      font-family: monospace;
+      font-size: 0.75rem;
+      opacity: 0.5;
+    }
+
+    /* ── Overlapping squares ── */
+    .stack {
+      position: relative;
+      width: 180px;
+      height: 150px;
+    }
+
+    .sq {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+    }
+
+    /* left column: position by DOM order */
+    .no-layer .sq:nth-child(1) { top: 0;    left: 0;   }
+    .no-layer .sq:nth-child(2) { top: 25px; left: 40px; }
+    .no-layer .sq:nth-child(3) { top: 50px; left: 80px; }
+
+    /* right column: position by named class so DOM order doesn't matter */
+    .sq-base       { top: 0;    left: 0;   }
+    .sq-components { top: 25px; left: 40px; }
+    .sq-utilities  { top: 50px; left: 80px; }
+
+    /* z-index set inside each layer — later layer = higher */
+    @layer base       { .sq-base       { z-index: 1; } }
+    @layer components { .sq-components { z-index: 2; } }
+    @layer utilities  { .sq-utilities  { z-index: 3; } }
+
+    /* ── Legend ── */
+    .legend {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-family: monospace;
+      font-size: 0.72rem;
+      opacity: 0.7;
+    }
+
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>@layer base, components, utilities</code> — one declaration sets the paint order forever</li>
+    <li>all three selectors have identical specificity (1 class) — layer position alone decides the winner</li>
+    <li>without <code>@layer</code>, source order decides — whoever is written last wins, fragile and accidental</li>
+  </ul>
+
+  <div class="demo">
+
+    <!-- Without @layer: plain source order, written so red is last and wins -->
+    <div class="group">
+      <div class="label">without @layer — source order wins</div>
+      <div class="stack no-layer">
+        <!-- green written first in source → ends up at bottom -->
+        <div class="sq" style="background:#34d399;"></div>
+        <!-- purple middle -->
+        <div class="sq" style="background:#a78bfa;"></div>
+        <!-- red written last in source → ends up on top -->
+        <div class="sq" style="background:#ef4444;"></div>
+      </div>
+      <div class="legend">
+        <div class="legend-row"><div class="swatch" style="background:#34d399"></div>utilities — first in source, bottom ✗</div>
+        <div class="legend-row"><div class="swatch" style="background:#a78bfa"></div>components — middle</div>
+        <div class="legend-row"><div class="swatch" style="background:#ef4444"></div>base — last in source, top ✗</div>
+      </div>
+    </div>
+
+    <!-- With @layer: layer order wins — utilities (green) always on top -->
+    <div class="group">
+      <div class="label">with @layer — layer order wins</div>
+      <div class="stack">
+        <!-- DOM order is reversed — utilities first, base last.
+             But layer order still wins: green stays on top. -->
+        <div class="sq sq-utilities"></div>
+        <div class="sq sq-components"></div>
+        <div class="sq sq-base"></div>
+      </div>
+      <div class="legend">
+        <div class="legend-row"><div class="swatch" style="background:#ef4444"></div>base — first layer, always bottom ✓</div>
+        <div class="legend-row"><div class="swatch" style="background:#a78bfa"></div>components — middle ✓</div>
+        <div class="legend-row"><div class="swatch" style="background:#34d399"></div>utilities — last layer, always top ✓</div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>isolation: isolate — NoJS</title>
+  <meta name="pattern:name" content="isolation-isolate-stacking-context">
+  <meta name="pattern:shows" content="A pseudo-element with z-index: -1 that disappears without isolation: isolate, and stays visible once the stacking context is contained.">
+  <meta name="pattern:techniques" content="isolation: isolate, z-index: -1 on ::before, stacking context containment">
+  <meta name="pattern:css-features" content="css-isolation">
+  <link rel="stylesheet" href="../theme.css">
+  <style>
+    .demo {
+      margin: 0 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 48px;
+      align-items: flex-start;
+    }
+
+    .group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .label {
+      font-family: monospace;
+      font-size: 0.75rem;
+      opacity: 0.5;
+    }
+
+    /* ── Shared card ── */
+    .card {
+      position: relative;
+      width: 220px;
+      padding: 24px 20px;
+      border-radius: 12px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      background: #e8d5ff;
+      color: #1a1a1a;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .card { background: #3b2660; color: #e8e8f0; }
+    }
+
+    /* gradient halo — should sit behind the card, not behind the page */
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -10px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #a78bfa, #38bdf8);
+      z-index: -1;
+    }
+
+    /* ── Without isolation: halo falls behind the page background ── */
+    /* .card-broken — no extra rule needed, this is the raw default */
+
+    /* ── With isolation: halo is contained inside the card's stacking context ── */
+    .card-fixed {
+      isolation: isolate;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>isolation: isolate</code> — creates a stacking context so <code>z-index: -1</code> is relative to the card, not the page</li>
+    <li><code>z-index: -1</code> on <code>::before</code> — goes behind card content, but without isolation escapes behind the page background entirely</li>
+    <li>no position, no z-index on the parent needed — <code>isolation</code> alone is enough</li>
+  </ul>
+
+  <div class="demo">
+
+    <div class="group">
+      <div class="label">without isolation: isolate</div>
+      <div class="card card-broken">
+        ::before is gone — slipped behind the page background.
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="label">with isolation: isolate</div>
+      <div class="card card-fixed">
+        ::before is visible — contained inside the card's own stacking context.
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

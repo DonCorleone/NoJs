@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>text-decoration — NoJS</title>
+  <meta name="pattern:name" content="text-decoration-underline">
+  <meta name="pattern:shows" content="Underlines with custom style, color, thickness, and offset — wavy, dashed, dotted, and skip-ink — using only text-decoration properties, no hacks.">
+  <meta name="pattern:techniques" content="text-decoration shorthand, text-decoration-thickness, text-underline-offset, text-decoration-skip-ink">
+  <meta name="pattern:css-features" content="text-decoration, text-underline-offset">
+  <link rel="stylesheet" href="../theme.css">
+  <style>
+    .demo {
+      margin: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .label {
+      font-family: monospace;
+      font-size: 0.72rem;
+      opacity: 0.45;
+    }
+
+    /* shared word style */
+    .word {
+      font-size: 2rem;
+      font-family: Georgia, serif;
+      text-decoration-line: underline;
+    }
+
+    /* 1 — browser default */
+    .u-default {
+      /* no overrides — raw browser underline */
+    }
+
+    /* 2 — wavy pink, thick, offset */
+    .u-wavy {
+      text-decoration: underline wavy #f472b6;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 6px;
+    }
+
+    /* 3 — dashed accent, thin */
+    .u-dashed {
+      text-decoration: underline dashed #a78bfa;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 5px;
+    }
+
+    /* 4 — dotted amber */
+    .u-dotted {
+      text-decoration: underline dotted #fbbf24;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 4px;
+    }
+
+    /* 5 — double line */
+    .u-double {
+      text-decoration: underline double #38bdf8;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 5px;
+    }
+
+    /* 6 — skip-ink: auto vs none (descenders) */
+    .u-skip-auto {
+      text-decoration: underline solid #34d399;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 0px;
+      text-decoration-skip-ink: auto; /* jumps over g, y, p tails */
+    }
+
+    .u-skip-none {
+      text-decoration: underline solid #ef4444;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 0px;
+      text-decoration-skip-ink: none; /* cuts straight through */
+    }
+
+    .skip-row {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+
+    .skip-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>text-decoration</code> — shorthand for line, style, and color in one rule</li>
+    <li><code>text-underline-offset</code> — pushes the line away from the baseline so it breathes</li>
+    <li><code>text-decoration-skip-ink: auto</code> — jumps over descenders (g, y, p) so the line stays clean</li>
+  </ul>
+
+  <div class="demo">
+
+    <div class="row">
+      <div class="label">browser default</div>
+      <span class="word u-default">Underline</span>
+    </div>
+
+    <div class="row">
+      <div class="label">underline wavy #f472b6 / thickness 3px / offset 6px</div>
+      <span class="word u-wavy">Underline</span>
+    </div>
+
+    <div class="row">
+      <div class="label">underline dashed #a78bfa / thickness 2px / offset 5px</div>
+      <span class="word u-dashed">Underline</span>
+    </div>
+
+    <div class="row">
+      <div class="label">underline dotted #fbbf24 / thickness 3px / offset 4px</div>
+      <span class="word u-dotted">Underline</span>
+    </div>
+
+    <div class="row">
+      <div class="label">underline double #38bdf8 / thickness 2px / offset 5px</div>
+      <span class="word u-double">Underline</span>
+    </div>
+
+    <div class="row">
+      <div class="label">skip-ink: auto vs none — descenders (g, y, p, q)</div>
+      <div class="skip-row">
+        <div class="skip-group">
+          <div class="label">skip-ink: auto ✓</div>
+          <span class="word u-skip-auto">Typography</span>
+        </div>
+        <div class="skip-group">
+          <div class="label">skip-ink: none ✗</div>
+          <span class="word u-skip-none">Typography</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
