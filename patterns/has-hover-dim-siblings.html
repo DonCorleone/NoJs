@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>:has() Hover Dim — NoJS</title>
+  <meta name="pattern:name" content="has-hover-dim-siblings">
+  <meta name="pattern:shows" content="Hovering one card dims and shrinks every other card — the parent detects the hovered child via :has() and :not(:hover) selects the rest.">
+  <meta name="pattern:techniques" content=":has(:hover), :not(:hover), group hover reaction, opacity + scale transition">
+  <meta name="pattern:css-features" content="css-has">
+  <link rel="stylesheet" href="../theme.css">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    /* ── Grid of cards ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      max-width: 680px;
+      width: 100%;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 1.25rem;
+      cursor: default;
+      transition: opacity 0.25s ease, scale 0.25s ease, border-color 0.25s ease;
+    }
+
+    .card-icon {
+      font-size: 1.75rem;
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.35rem;
+      color: var(--text);
+    }
+
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── The one selector that does everything ── */
+    .cards:has(.card:hover) .card:not(:hover) {
+      opacity: 0.4;
+      scale: 0.95;
+    }
+
+    /* ── Slight lift on the hovered card ── */
+    .card:hover {
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>.cards:has(.card:hover)</code> — parent reacts when any child is hovered</li>
+    <li><code>.card:not(:hover)</code> — targets every sibling that isn't the one being hovered</li>
+    <li>No JavaScript, no class toggling — one selector handles the whole group</li>
+  </ul>
+
+  <div class="cards">
+
+    <div class="card">
+      <span class="card-icon">🎨</span>
+      <div class="card-title">Design</div>
+      <p class="card-desc">Visual systems, color theory, and component libraries.</p>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">⚙️</span>
+      <div class="card-title">Engineering</div>
+      <p class="card-desc">Scalable architecture, APIs, and performance tuning.</p>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">📈</span>
+      <div class="card-title">Growth</div>
+      <p class="card-desc">Acquisition funnels, A/B testing, and retention loops.</p>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🔐</span>
+      <div class="card-title">Security</div>
+      <p class="card-desc">Zero-trust models, audits, and threat modelling.</p>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🌍</span>
+      <div class="card-title">Localisation</div>
+      <p class="card-desc">i18n pipelines, RTL layouts, and regional compliance.</p>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🤝</span>
+      <div class="card-title">Partnerships</div>
+      <p class="card-desc">Integrations, co-marketing, and strategic alliances.</p>
+    </div>
+
+  </div>
+
+</body>
+</html>
