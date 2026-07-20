@@ -131,3 +131,4 @@ After creating or updating a snippet:
 | Horizontal Scroll | `horizontal-scroll-view-timeline.html` | Scroll down to move sideways — Apple-style horizontal card scroll using view-timeline-name and a sticky viewport. | view-timeline-name, animation-timeline, sticky |
 | Image Carousel | `image-carousel-scroll-snap.html` | Dot-navigated slide carousel using scroll-snap-type and plain anchor links. | scroll-snap-type, scroll-snap-align, anchor links |
 | FAQ Accordion | `faq-accordion-details-summary.html` | Collapsible Q&A panels using native details and summary — browser handles open/close state. | details, summary, ::marker |
+| display: contents | `display-contents-unwrap.html` | A semantic wrapper whose layout box is removed so its children become direct flex/grid items — identical HTML, one property changed. | display: contents, flex layout, semantic grouping |

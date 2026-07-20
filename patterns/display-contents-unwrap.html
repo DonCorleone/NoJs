@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>display: contents — NoJS</title>
+  <meta name="pattern:name" content="display-contents-unwrap">
+  <meta name="pattern:shows" content="A semantic wrapper element that vanishes from layout — its children participate directly in the parent flex/grid — without touching the HTML.">
+  <meta name="pattern:techniques" content="display: contents, flex layout, semantic grouping">
+  <meta name="pattern:css-features" content="css-display-contents">
+  <link rel="stylesheet" href="../theme.css">
+  <style>
+    body {
+      padding: 1rem;
+    }
+
+    /* ── Shared demo grid ── */
+    .demo-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 640px;
+      margin: 1.5rem auto 0;
+    }
+
+    .demo-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── The flex parent ── */
+    .flex-parent {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      background: var(--surface);
+    }
+
+    /* ── The items ── */
+    .item {
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      color: #1a1a1a;
+    }
+    @media (prefers-color-scheme: dark) {
+      .item { color: #f0f0f0; }
+    }
+
+    .item-a { background: #f472b6; }
+    .item-b { background: #60a5fa; }
+    .item-c { background: #a78bfa; }
+
+    /* ── The wrapper: WITHOUT display:contents ── */
+    .wrapper-blocking {
+      border: 2px dashed #f87171;
+      border-radius: 8px;
+      padding: 4px;
+      /* default display:block — becomes a single flex child,
+         so B and C stack inside it, out of the main flow */
+    }
+
+    /* ── The wrapper: WITH display:contents ── */
+    .wrapper-transparent {
+      display: contents;
+      /* the border, padding, background are all gone from paint
+         B and C join A as direct flex children */
+    }
+
+    /* ── Legend / badges ── */
+    .badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      margin-top: 0.5rem;
+    }
+    .badge-bad  { background: #f871711a; color: #f87171; border: 1px solid #f8717166; }
+    .badge-good { background: #34d39922; color: #34d399; border: 1px solid #34d39966; }
+
+    .note {
+      text-align: center;
+      font-size: 0.72rem;
+      font-family: var(--mono);
+      color: var(--muted);
+      margin: 0 auto;
+      max-width: 480px;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>display: contents</code> — removes the element's own layout box; children flow into the parent as if the wrapper never existed</li>
+    <li>The DOM element is still there — event listeners, refs, and class hooks remain intact</li>
+    <li>Backgrounds, borders, and padding on the element are invisible (no box = no paint)</li>
+  </ul>
+
+  <div class="demo-pair">
+
+    <!-- LEFT: blocking wrapper -->
+    <div>
+      <p class="demo-label">without display: contents</p>
+      <div class="flex-parent">
+        <div class="item item-a">A</div>
+        <!-- wrapper is a single flex child → B & C are trapped inside -->
+        <div class="wrapper-blocking">
+          <div class="item item-b">B</div>
+          <div class="item item-c">C</div>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <span class="badge badge-bad">.wrapper { display: block }</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: transparent wrapper -->
+    <div>
+      <p class="demo-label">with display: contents</p>
+      <div class="flex-parent">
+        <div class="item item-a">A</div>
+        <!-- wrapper vanishes from layout → B & C are direct flex children -->
+        <div class="wrapper-transparent">
+          <div class="item item-b">B</div>
+          <div class="item item-c">C</div>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <span class="badge badge-good">.wrapper { display: contents }</span>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="note" style="margin-top: 1.25rem;">
+    Both sides have identical HTML. Only one CSS property changes.
+  </p>
+
+</body>
+</html>
