@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Counting Number Animation — NoJS</title>
+  <meta name="pattern:name" content="counting-number-scroll-animation">
+  <meta name="pattern:shows" content="Numbers that animate by scrolling a digit column upward — each digit is a stacked list clipped by overflow: hidden.">
+  <meta name="pattern:techniques" content="overflow: hidden, translateY animation, stacked digit columns, animation-delay stagger">
+  <meta name="pattern:css-features" content="css-animations, css-transforms">
+  <link rel="stylesheet" href="../theme.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 3rem;
+      padding: 2rem;
+    }
+
+    /* ── Stat cards ── */
+    .stats {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      min-width: 140px;
+    }
+
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── The number display ── */
+    .count {
+      display: inline-flex;          /* digits sit side by side */
+      overflow: hidden;              /* clips the scrolling column */
+      height: 1em;
+      font-size: 2.5rem;
+      font-weight: 800;
+      font-family: var(--mono);
+      color: var(--accent);
+      line-height: 1;
+      vertical-align: bottom;
+    }
+
+    /* Each digit slot: a vertical strip of 0-9 */
+    .digit {
+      display: flex;
+      flex-direction: column;
+      animation: scroll-digit 1.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      /* start at 0 (top), scroll to the target digit */
+    }
+
+    /* Delay each digit column for a stagger effect */
+    .digit:nth-child(1) { animation-delay: 0.1s; }
+    .digit:nth-child(2) { animation-delay: 0.25s; }
+    .digit:nth-child(3) { animation-delay: 0.4s; }
+    .digit:nth-child(4) { animation-delay: 0.55s; }
+    .digit:nth-child(5) { animation-delay: 0.7s; }
+
+    .digit span {
+      display: block;
+      height: 1em;
+      line-height: 1;
+    }
+
+    /* The animation scrolls the column upward by N × 1em
+       where N = the target digit value.
+       We set --n via inline style on each .digit element. */
+    @keyframes scroll-digit {
+      from { transform: translateY(0); }
+      to   { transform: translateY(calc(var(--n, 0) * -1em)); }
+    }
+
+    /* ── "Replay" hint ── */
+    .hint {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* Replay on hover over the whole stats block */
+    .stats:hover .digit {
+      animation: none;
+    }
+    .stats:hover .digit {
+      /* reset — then re-trigger on next hover via a trick:
+         we just freeze at 0 on hover so it resets visually */
+      transform: translateY(0);
+      transition: transform 0.2s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>overflow: hidden</code> — clips the digit column to show exactly one digit at a time</li>
+    <li><code>translateY(calc(var(--n) * -1em))</code> — scrolls the column to the target digit using a CSS custom property</li>
+    <li><code>animation-delay</code> stagger — each column starts slightly later for a cascading count-up feel</li>
+  </ul>
+
+  <div class="stats">
+
+    <!-- 9 4 , 2 0 0 users -->
+    <div class="stat-card">
+      <div class="stat-label">Users</div>
+      <div class="count" aria-label="94,200">
+        <!-- Each .digit contains 0–9 stacked; --n targets the final digit -->
+        <div class="digit" style="--n:9"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+        <div class="digit" style="--n:4"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+        <span style="align-self:flex-start; line-height:1; font-size:2.5rem; font-weight:800; color:var(--accent)">,</span>
+        <div class="digit" style="--n:2"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+        <div class="digit" style="--n:0"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+        <div class="digit" style="--n:0"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+      </div>
+    </div>
+
+    <!-- 3 8 % growth -->
+    <div class="stat-card">
+      <div class="stat-label">Growth</div>
+      <div class="count" aria-label="38%">
+        <div class="digit" style="--n:3"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+        <div class="digit" style="--n:8"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+        <span style="align-self:flex-start; line-height:1; font-size:2.5rem; font-weight:800; color:var(--accent)">%</span>
+      </div>
+    </div>
+
+    <!-- $ 1 2 7 revenue -->
+    <div class="stat-card">
+      <div class="stat-label">Revenue (k)</div>
+      <div class="count" aria-label="$127k">
+        <span style="align-self:flex-start; line-height:1; font-size:2.5rem; font-weight:800; color:var(--accent)">$</span>
+        <div class="digit" style="--n:1"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+        <div class="digit" style="--n:2"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+        <div class="digit" style="--n:7"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div>
+        <span style="align-self:flex-start; line-height:1; font-size:2.5rem; font-weight:800; color:var(--accent)">k</span>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="hint">hover the cards to reset · reload to replay</p>
+
+</body>
+</html>

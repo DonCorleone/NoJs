@@ -132,3 +132,4 @@ After creating or updating a snippet:
 | Image Carousel | `image-carousel-scroll-snap.html` | Dot-navigated slide carousel using scroll-snap-type and plain anchor links. | scroll-snap-type, scroll-snap-align, anchor links |
 | FAQ Accordion | `faq-accordion-details-summary.html` | Collapsible Q&A panels using native details and summary — browser handles open/close state. | details, summary, ::marker |
 | display: contents | `display-contents-unwrap.html` | A semantic wrapper whose layout box is removed so its children become direct flex/grid items — identical HTML, one property changed. | display: contents, flex layout, semantic grouping |
+| Counting Number | `counting-number-scroll-animation.html` | Stat counters that animate by scrolling a stacked digit column upward — overflow: hidden clips the strip, --n targets the final digit via translateY. | overflow: hidden, translateY animation, stacked digit columns, animation-delay stagger |
