@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Zoom Hover — NoJS</title>
+  <meta name="pattern:name" content="image-zoom-hover">
+  <meta name="pattern:shows" content="Images that smoothly zoom in on hover and zoom back out on mouse-leave — overflow hidden clips the scale without shifting layout.">
+  <meta name="pattern:techniques" content="transform: scale(), overflow: hidden, transition, transform-origin">
+  <meta name="pattern:css-features" content="css-transforms, css-transitions">
+  <link rel="stylesheet" href="../theme.css">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    /* ── Gallery grid ── */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      max-width: 720px;
+      width: 100%;
+    }
+
+    /* ── The clip container — must have overflow: hidden ── */
+    .zoom-wrap {
+      overflow: hidden;
+      border-radius: 10px;
+      aspect-ratio: 4 / 3;
+      display: block;
+    }
+
+    /* ── The image scales; the wrapper clips ── */
+    .zoom-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease, filter 0.45s ease;
+      transform-origin: center center;
+    }
+
+    .zoom-wrap:hover img,
+    .zoom-wrap:focus-within img {
+      transform: scale(1.18);
+      filter: brightness(1.05);
+    }
+
+    /* ── Caption row below each image ── */
+    .item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .item-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* ── Variant: zoom from corner ── */
+    .origin-top-left img  { transform-origin: top left; }
+    .origin-top-right img { transform-origin: top right; }
+  </style>
+</head>
+<body>
+
+  <ul class="keys">
+    <li><code>overflow: hidden</code> on the wrapper — clips the scaled image without disturbing layout</li>
+    <li><code>transform: scale()</code> on the image — GPU-accelerated, doesn't reflow siblings</li>
+    <li><code>transform-origin</code> — controls which point the image zooms toward (center, corner, etc.)</li>
+  </ul>
+
+  <div class="gallery">
+
+    <div class="item">
+      <a class="zoom-wrap" href="#" tabindex="0">
+        <img
+          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80"
+          alt="Mountain landscape"
+        >
+      </a>
+      <span class="item-label">center (default)</span>
+    </div>
+
+    <div class="item">
+      <a class="zoom-wrap origin-top-left" href="#" tabindex="0">
+        <img
+          src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&q=80"
+          alt="Forest path"
+        >
+      </a>
+      <span class="item-label">top-left origin</span>
+    </div>
+
+    <div class="item">
+      <a class="zoom-wrap origin-top-right" href="#" tabindex="0">
+        <img
+          src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80"
+          alt="Aerial view"
+        >
+      </a>
+      <span class="item-label">top-right origin</span>
+    </div>
+
+  </div>
+
+</body>
+</html>
